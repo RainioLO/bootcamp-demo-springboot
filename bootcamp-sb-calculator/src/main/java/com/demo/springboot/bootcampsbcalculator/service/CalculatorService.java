@@ -1,12 +1,14 @@
 package com.demo.springboot.bootcampsbcalculator.service;
 
+import com.demo.springboot.bootcampsbcalculator.model.Result;
+
 public interface CalculatorService {
   
-  double divide(int x, int y);
+  Result divide(double x, double y);
 
-  int add (int x, int y);
+  Result add (double x, double y);
 
-  int multiply (int x, int y);
+  Result multiply (double x, double y);
 
-  int substract (int x, int y);
+  Result substract (double x, double y);
 }
