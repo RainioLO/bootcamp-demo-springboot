@@ -23,7 +23,10 @@ public interface CalculatorOperation {
   // @PathVariable String operation);
 
   @PostMapping(value = "/")
-  ApiResp<Result> calculate(
-      @RequestBody CalculatorDTO calculatorDTO) throws BusinessException; // the request body is CalculatorDTO --> to Result
+  ApiResp<Result> calculate(@RequestBody CalculatorDTO calculatorDTO)
+      throws BusinessException; // the request body is CalculatorDTO --> to Result
 
+  @GetMapping(value = "/{x}/{y}{operation}")
+  ApiResp<Result> getCalculate(@PathVariable String x, @PathVariable String y,
+      @PathVariable String operation) throws BusinessException;
 }
