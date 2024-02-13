@@ -1,4 +1,4 @@
-package com.bootcampsbforum.dto.gov.mapper;
+package com.bootcampsbforum.mapper;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,7 +15,7 @@ import com.bootcampsbforum.model.dto.jph.Post;
 import com.bootcampsbforum.model.dto.jph.User;
 
 // when server start, Spring ensures modelMapper is ready before creating GovMapper object
-// 
+//
 @Component
 public class GovMapper {
 
@@ -24,6 +24,26 @@ public class GovMapper {
 
   public UserDTO map(User user) {
     return this.modelmapper.map(user, UserDTO.class); // from User to UserDTO to consumer
+  }
+
+  // from User to Entity<User>
+  public com.bootcampsbforum.entity.User mapEntity(User user) {
+    return com.bootcampsbforum.entity.User.builder()//
+        .name(user.getName())//
+        .username(user.getUsername())//
+        .website(user.getWebsite())//
+        .addrLat(user.getAddress().getGeo().getLat())//
+        .addrLong(user.getAddress().getGeo().getLongitude())//
+        .email(user.getEmail())//
+        .phone(user.getPhone())//
+        .street(user.getAddress().getStreet())//
+        .city(user.getAddress().getCity())//
+        .suite(user.getAddress().getSuite())//
+        .zipcode(user.getAddress().getZipcode())//
+        .cName(user.getCompany().getName())//
+        .cCatchPhrase(user.getCompany().getCatchPhrase())//
+        .cBusService(user.getCompany().getBusService())//
+        .build();
   }
 
   public UserPostDTO mapPost(User user, List<Post> posts) {

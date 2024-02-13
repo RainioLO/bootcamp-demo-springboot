@@ -20,7 +20,7 @@ public class User { // from JSON to object deserializtion
   // this class can be shared to the world
 
   private int id;
-  private String name;
+  private String name; // String to varchar in SQL
   private String username;
   private String email;
   private String phone;

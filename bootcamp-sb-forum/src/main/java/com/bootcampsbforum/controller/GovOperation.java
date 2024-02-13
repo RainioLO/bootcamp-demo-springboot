@@ -1,5 +1,6 @@
 package com.bootcampsbforum.controller;
 
+import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,9 +17,13 @@ public interface GovOperation {
 
   // 1. No user found
   // 2. User found, but no post --> empty array
-  @GetMapping(value = "/users")
+  @GetMapping(value = "/user")
   @ResponseStatus(value = HttpStatus.OK)
   ApiResp<UserPostDTO> getUser(@RequestParam(value = "id") int userId);
+
+  @GetMapping(value = "/users")
+  @ResponseStatus(value = HttpStatus.OK)
+  ApiResp<List<UserPostDTO>> getUsers();
 
   // 404 -> request path issue or resource not found
   // 204 -> id not found. Processed the business logic, record not found
