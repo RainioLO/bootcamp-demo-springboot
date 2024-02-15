@@ -12,7 +12,7 @@ import com.bootcampsbforum.infra.ResourceNotFound;
 import com.bootcampsbforum.infra.Syscode;
 
 @RestControllerAdvice // Bean: @ControllerAdvice + @ResponseBody, will help to catch the logic between the method
-
+// let itself to be bean let other new
 public class GlobalExceptionHandler { // is the catcher
 
   // from up to down

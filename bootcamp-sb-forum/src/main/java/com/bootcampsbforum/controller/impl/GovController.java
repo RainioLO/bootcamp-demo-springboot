@@ -121,7 +121,7 @@ public class GovController implements GovOperation {
     // 3. relate the user and post
     // 4. set DTO object and return
     User user = govService.getUser(userId);
-log.info("USER     " + user);
+    log.info("USER     " + user);
     List<PostDTO> postDTOs = postService.getPosts().stream() // post DTO builder List ...
         .filter(e -> e.getUserId() == userId) //
         .map(e -> {
@@ -165,6 +165,10 @@ log.info("USER     " + user);
         .build();
     return govMapper.map(user); // from User to UserDTO
   }
+
+
+
+  
 
 }
 

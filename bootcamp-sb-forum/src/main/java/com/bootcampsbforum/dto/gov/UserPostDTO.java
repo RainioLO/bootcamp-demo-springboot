@@ -24,7 +24,7 @@ public class UserPostDTO { // DTO to shpe the data for the user, as the form of 
 
   // Post have many attributes... // choose what to present
   @Setter
-  @JsonProperty(value = "posts")
+  @JsonProperty(value = "posts") //serialization
   private List<PostDTO> postDTOs;
 
 }

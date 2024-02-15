@@ -1,7 +1,5 @@
 api:
-  jph:
-    domain: "jsonplaceholder.typicode.com"
-    endpoints:
-      user: "/users"
-      post: "/posts"
-      comment: "/comments"
+  coingecko:
+    domain: "api.coingecko.com/api/v3"
+    endpoint:
+      coin_market_usd: "/coins/markets?vs_currency=usd&x_cg_demo_api_key=CG-cTyrK8iCq46x38hgMQZfgGGQ"

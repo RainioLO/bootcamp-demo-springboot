@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 //Access database
 @Entity // Coonnect to the database is @Entity
@@ -19,12 +20,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
+@Setter
 public class User implements Serializable { // if no implement cannot put the attribute to the interface
 
   // all round, multi platform
 
   // define the column in the table
-  @Id // PK
+  @Id // PK primary key
   @GeneratedValue(strategy = GenerationType.IDENTITY) // auto-generated
   private long id;
   private String name;
