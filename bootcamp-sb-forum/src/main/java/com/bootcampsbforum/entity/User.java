@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 //Access database
-@Entity // Coonnect to the database is @Entity
+@Entity // Coonnect to the database is @Entity --> JPA direcly control the database
 @Table(name = "Users") // the database table name
 @Getter
 @AllArgsConstructor

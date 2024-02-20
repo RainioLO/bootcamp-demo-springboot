@@ -1,16 +1,12 @@
 package com.demo.springboot.bootcampsbcalculator.controller.Impl;
 
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.demo.springboot.bootcampsbcalculator.controller.CalculatorOperation;
 import com.demo.springboot.bootcampsbcalculator.infra.ApiResp;
 import com.demo.springboot.bootcampsbcalculator.infra.Syscode;
 import com.demo.springboot.bootcampsbcalculator.infra.exception.BusinessException;
-import com.demo.springboot.bootcampsbcalculator.infra.exception.InvalidCalculationException;
-import com.demo.springboot.bootcampsbcalculator.infra.exception.ResourceNotFound;
 import com.demo.springboot.bootcampsbcalculator.model.Calculate;
 import com.demo.springboot.bootcampsbcalculator.model.Result;
 import com.demo.springboot.bootcampsbcalculator.model.dto.CalculatorDTO;
@@ -98,27 +94,3 @@ public class CalculatorController implements CalculatorOperation {
         .build(); // ResponseEntity.ok() -> http status = 200
   }
 }
-
-
-
-// @Override
-// public String getCalculation(String x, String y, String operation) {
-// Calculate calcOperation = Calculate.fromString(operation);
-// switch (calcOperation) {
-// case ADD:
-// return calculatorService.add(Integer.parseInt(x), Integer.parseInt(y));
-// case DIVIDE:
-// return calculatorService.divide(Integer.parseInt(x),
-// Integer.parseInt(y));
-// case MULTIPLY:
-// return calculatorService.multiply(Integer.parseInt(x),
-// Integer.parseInt(y));
-// case SUBTRACT:
-// return calculatorService.substract(Integer.parseInt(x),
-// Integer.parseInt(y));
-// default:
-// throw new UnsupportedOperationException(
-// "Operation " + operation + " is not supported.");
-// }
-// }
-

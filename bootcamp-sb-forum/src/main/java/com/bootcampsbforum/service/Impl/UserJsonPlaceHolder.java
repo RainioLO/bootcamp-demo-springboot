@@ -50,9 +50,6 @@ public class UserJsonPlaceHolder implements UserService { // the only object
   public List<User> getUsers() { // instance method ny this Service object
     String userUrl = BcUtil.url(Scheme.HTTPS, domain, userEndpoint); // variable in local method
     User[] users = restTemplate.getForObject(userUrl, User[].class);
-    // System.out.println("After restTemplate");
-    // System.out.println(Arrays.toString(users));
-
     return Arrays.stream(users).collect(Collectors.toList());
   }
 

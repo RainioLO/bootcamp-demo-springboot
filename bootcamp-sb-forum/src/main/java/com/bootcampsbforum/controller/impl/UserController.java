@@ -26,13 +26,15 @@ public class UserController implements UserOperation {
     return userService.getUsers();
   }
 
+
   @Override
-  public ApiResp<com.bootcampsbforum.entity.User> findByUsername(String username) {
+  public ApiResp<com.bootcampsbforum.entity.User> findByUsername(
+      String username) {
     return ApiResp.<com.bootcampsbforum.entity.User>builder() //
-             .code(Syscode.OK.getCode()) //
-             .message(Syscode.OK.getMessage()) //
-             .data(userService.findByUsername(username)) //
-             .build();
+        .code(Syscode.OK.getCode()) //
+        .message(Syscode.OK.getMessage()) //
+        .data(userService.findByUsername(username)) //
+        .build();
   }
 
   @Override
@@ -92,7 +94,6 @@ public class UserController implements UserOperation {
         .build();
 
   }
-
-
-
 }
+
+

@@ -15,10 +15,11 @@ import com.bootcampsbforum.model.dto.jph.Post;
 import com.bootcampsbforum.model.dto.jph.User;
 
 // when server start, Spring ensures modelMapper is ready before creating GovMapper object
-//
-@Component
+// can put in the AppConfig -> library 
+@Component // class to become bean
 public class GovMapper {
 
+  // containing attributes
   @Autowired
   private ModelMapper modelmapper;
 

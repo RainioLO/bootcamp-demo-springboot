@@ -12,6 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Data
 @Builder
+// the object is separated from the original object and present to the gov
 public class UserPostDTO { // DTO to shpe the data for the user, as the form of presentation
 
   private int id;

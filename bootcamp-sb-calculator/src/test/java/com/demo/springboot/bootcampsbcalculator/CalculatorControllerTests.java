@@ -4,7 +4,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -13,7 +12,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
 import com.demo.springboot.bootcampsbcalculator.controller.Impl.CalculatorController;
 import com.demo.springboot.bootcampsbcalculator.model.Result;
 import com.demo.springboot.bootcampsbcalculator.model.dto.CalculatorDTO;
@@ -82,23 +80,6 @@ public class CalculatorControllerTests {
                                                 .value("250.00000"))
                                 .andDo(print()); // similar to sysout, toString()
         }
-
-        // @Test
-        // void divCalculate2() throws Exception {
-
-        //         Mockito.when(CalculatorService.divide(1000, 0))
-        //                         .thenThrow(new ArithmeticException("Division by zero")); // mock the result using service
-        //         // to retrun the Result
-        //         // assert
-        //         CalculatorDTO request = new CalculatorDTO("1000", "0", "div");
-        //         String requestContentString =
-        //                         new ObjectMapper().writeValueAsString(request);
-        //         mockMvc.perform(post("/api/v1/", request)
-        //                         .contentType(MediaType.APPLICATION_JSON) //
-        //                         .content(requestContentString)
-        //                         .andExpect(status().isBadRequest())
-        //                         .andDo(print()));
-        // }
 
         @Test
         void subCalculate() throws Exception {

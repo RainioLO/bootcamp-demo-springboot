@@ -27,13 +27,16 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 // Service layer for processing
-@RestController
+@RestController //Bean autowired
 @RequestMapping(value = "/gov/api/v1") // controller request mapping from gov
 public class GovController implements GovOperation {
 
   // @Autowired
   // private UserService userService;
 
+  //
+  // When Service start -> check autowired
+  // injection (well checked before service start)
   @Autowired
   private PostService postService;
 
@@ -59,7 +62,7 @@ public class GovController implements GovOperation {
                 .body(p.getBody()).build();
           }).collect(Collectors.toList());
 
-      return UserPostDTO.builder() // return the data
+      return UserPostDTO.builder() // from User to UserPostDTO
           .id(e.getId())//
           .username(e.getUsername())//
           .email(e.getEmail())//
