@@ -10,17 +10,18 @@ import com.bccryptocoingecko.infra.BusinessException;
 import com.bccryptocoingecko.infra.BusinessRuntimeException;
 import com.bccryptocoingecko.model.Coin;
 import com.bccryptocoingecko.model.CoinDTO;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 public interface CoinOperation {
 
   @GetMapping(value = "/coins")
   @ResponseStatus(value = HttpStatus.OK)
   ApiResponse<List<Coin>> getCoins (@RequestParam(value = "currency") String currency, @RequestParam(value = "ids") String id)
-  throws BusinessException, BusinessRuntimeException;
+  throws BusinessException, BusinessRuntimeException, JsonProcessingException;
 
   @GetMapping(value = "/coindto")
   @ResponseStatus(value = HttpStatus.OK)
   ApiResponse<List<CoinDTO>> getCoinDTO(@RequestParam(value = "currency") String currency, @RequestParam(value = "ids") String id)
-  throws BusinessException, BusinessRuntimeException;
+  throws BusinessException, BusinessRuntimeException, JsonProcessingException;
   
 }

@@ -3,15 +3,11 @@ package com.bccryptocoingecko.service.impl;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.modelmapper.internal.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import com.bccryptocoingecko.infra.BcUtil;
-import com.bccryptocoingecko.infra.BusinessException;
 import com.bccryptocoingecko.infra.Scheme;
-import com.bccryptocoingecko.infra.Syscode;
 import com.bccryptocoingecko.model.Coin;
 import com.bccryptocoingecko.service.CoinService;
 

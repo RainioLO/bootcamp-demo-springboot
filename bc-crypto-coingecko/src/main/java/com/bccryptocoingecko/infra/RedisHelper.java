@@ -1,30 +1,18 @@
-package com.bootcampsbforum.infra;
+package com.bccryptocoingecko.infra;
 
+import java.time.Duration;
 import java.util.Objects;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-// @Component
 public class RedisHelper {
 
-  // @Autowired // approach 1: field injection
-  private RedisTemplate<String, String> redisTemplate; // 開bean add to context
+  private RedisTemplate<String, String> redisTemplate;
 
-  private ObjectMapper objectMapper;
-
-  // dependency injection: approach 1: service start
-
-  // public RedisHelper(RedisTemplate<String, String> redisTemplate,
-  //     ObjectMapper objectmapper) {
-  //   Objects.requireNonNull(redisTemplate);
-  //   Objects.requireNonNull(objectmapper);
-  //   this.redisTemplate = redisTemplate;
-  //   this.objectMapper = objectmapper;
-  // }
+  private ObjectMapper objectMapper; // get from @Beans
 
   public RedisHelper(RedisConnectionFactory factory,
       ObjectMapper objectMapper) { // spring context
@@ -38,16 +26,22 @@ public class RedisHelper {
     this.objectMapper = objectMapper;
   }
 
-  // instance methods
   public void set(String key, Object value) throws JsonProcessingException {
     String serializedData = objectMapper.writeValueAsString(value);
-    this.redisTemplate.opsForValue().set(key, serializedData); // confirm not NPEss
+    this.redisTemplate.opsForValue().set(key, serializedData);
   }
 
-  // that type is that type
-  public <T> T get(String key, Class<T> clazz) throws JsonProcessingException{
-    String value = this.redisTemplate.opsForValue().get(key); //before deserialize value //j unit to locate work or not...
+  
+  public void set(String key, Object value,String time) throws JsonProcessingException {
+    String serializedData = objectMapper.writeValueAsString(value);
+    this.redisTemplate.opsForValue().set(key, serializedData);
+    this.redisTemplate.expire(key, Duration.ofSeconds(Long.valueOf(time)));
+  }
+
+  public <T> T get(String key, Class<T> clazz) throws JsonProcessingException {
+    String value = (String) this.redisTemplate.opsForValue().get(key);
     return objectMapper.readValue(value, clazz);
   }
+
 
 }

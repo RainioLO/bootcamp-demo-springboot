@@ -1,9 +1,7 @@
 package com.bccryptocoingecko.controller.impl;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.bccryptocoingecko.controller.CoinOperation;
 import com.bccryptocoingecko.infra.ApiResponse;
-import com.bccryptocoingecko.infra.BusinessException;
 import com.bccryptocoingecko.infra.CurrencyNotFoundException;
 import com.bccryptocoingecko.infra.Syscode;
 import com.bccryptocoingecko.model.Coin;
 import com.bccryptocoingecko.model.CoinDTO;
-import com.bccryptocoingecko.model.Currency;
 import com.bccryptocoingecko.service.CoinService;
+import com.bccryptocoingecko.service.RedisService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -28,11 +26,15 @@ public class CoinOperationImpl implements CoinOperation {
   @Autowired
   private CoinService coinService;
 
+  @Autowired
+  RedisService redisService;
+
   static List<String> requirement = new ArrayList<>();
 
   @Override
   public ApiResponse<List<Coin>> getCoins(String currency, String ids)
-      throws CurrencyNotFoundException, NullPointerException {
+      throws CurrencyNotFoundException, NullPointerException,
+      JsonProcessingException {
 
     if (currency.isBlank()) {
       throw new NullPointerException();
@@ -51,15 +53,22 @@ public class CoinOperationImpl implements CoinOperation {
     List<Coin> usdfilteredCoins = coinService.getCoins().stream()
         .filter(e -> requirement.contains(e.getId()))
         .collect(Collectors.toList());
-    log.info("usdfilteredCoins :" + usdfilteredCoins);
-    log.info("controller return ");
+    // log.info("usdfilteredCoins :" + usdfilteredCoins);
+    // log.info("controller return ");
 
     if (usdfilteredCoins.isEmpty()) {
       throw new NullPointerException();
     }
 
+
     switch (currency) {
       case "usd":
+        if (usdfilteredCoins.size() > 0) {
+          for (Coin coin : usdfilteredCoins) {
+            String key = "crypto:coingecko:coins-markets:" + currency + ":" + coin.getId();
+            redisService.createCoin(key, coin);
+          }
+        }
         return ApiResponse.<List<Coin>>builder() //
             .code(Syscode.OK.getCode()) //
             .message(Syscode.OK.getMessage()) //
@@ -73,7 +82,7 @@ public class CoinOperationImpl implements CoinOperation {
 
   @Override
   public ApiResponse<List<CoinDTO>> getCoinDTO(String currency, String ids)
-      throws CurrencyNotFoundException, NullPointerException {
+      throws CurrencyNotFoundException, NullPointerException, JsonProcessingException {
 
     if (currency.isBlank()) {
       throw new NullPointerException();
@@ -105,6 +114,12 @@ public class CoinOperationImpl implements CoinOperation {
 
     switch (currency) {
       case "usd":
+        if (usdfilteredCoinsDTO.size() > 0) {
+          for (CoinDTO coin : usdfilteredCoinsDTO) {
+            String key = "crypto:coingecko:coins-markets:" + currency + ":" + coin.getId();
+            redisService.createCoinDTO(key, coin);
+          }
+        }
         return ApiResponse.<List<CoinDTO>>builder() //
             .code(Syscode.OK.getCode()) //
             .message(Syscode.OK.getMessage()) //
@@ -113,6 +128,5 @@ public class CoinOperationImpl implements CoinOperation {
       default:
         throw new CurrencyNotFoundException(Syscode.CURRENCY_NOTFOUND);
     }
-
   }
 }
