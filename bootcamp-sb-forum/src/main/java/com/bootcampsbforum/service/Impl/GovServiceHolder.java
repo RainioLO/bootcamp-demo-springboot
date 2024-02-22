@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.bootcampsbforum.infra.JPHClientException;
+import com.bootcampsbforum.infra.Syscode;
 import com.bootcampsbforum.mapper.GovMapper;
 import com.bootcampsbforum.model.dto.jph.User;
 import com.bootcampsbforum.service.ForumDatabaseService;
@@ -37,6 +39,9 @@ public class GovServiceHolder implements GovService {
   public List<User> getUsers() {
     // call JPH
     List<User> users = userservice.getUsers();
+    if (users.size() == 0){
+      throw new JPHClientException(Syscode.JPH_NOT_AVAILABLE);
+    }
     // clear DB
     forumDatabaseService.deleteAllUsers();
     // save all

@@ -32,7 +32,7 @@ public class PostJsonHolder implements PostService {
     // RestTemplate restTemplate = new RestTemplate(); // to getForObject
     String postUrl = BcUtil.url(Scheme.HTTPS, domain, postEndpoint); // variable in local method
 
-    
+
     try {
       Post[] posts = restTemplate.getForObject(postUrl, Post[].class); // try whether can get from the holder
       // 95% unchecked exception
