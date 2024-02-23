@@ -4,6 +4,8 @@ import java.util.List;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import com.bootcampsbforum.dto.gov.request.UserRequestDTO;
+import com.bootcampsbforum.entity.UserEntity;
 import com.bootcampsbforum.infra.ApiResp;
 import com.bootcampsbforum.model.dto.jph.User;
 
@@ -14,7 +16,7 @@ public interface UserService {
 
   User getUser(int index);
 
-  com.bootcampsbforum.entity.User findByUsername(String username);
+  com.bootcampsbforum.entity.UserEntity findByUsername(String username);
 
   // List<User> findAllByEmailAndPhone(String email, String phone);
 
@@ -27,17 +29,19 @@ public interface UserService {
   // Long countUserByNameStartWith(@Param("prefix") String prefix);
   // List<User> findAllByAddrLatGreaterThan(Double latitude);
 
-  List<com.bootcampsbforum.entity.User> getAllByEmailOrPhone(String email,
+  List<com.bootcampsbforum.entity.UserEntity> getAllByEmailOrPhone(String email,
       String phone, Sort sort);
 
-  List<com.bootcampsbforum.entity.User> getUsersByAddrLatGreaterThan(
+  List<com.bootcampsbforum.entity.UserEntity> getUsersByAddrLatGreaterThan(
       Double latitude);
 
   Long countUserByName(String prefix);
 
   void updateUserEmailById(Long id, String email);
 
-  com.bootcampsbforum.entity.User updateUserById(Long id,
-      com.bootcampsbforum.entity.User user);
+  com.bootcampsbforum.entity.UserEntity updateUserById(Long id,
+      com.bootcampsbforum.entity.UserEntity user);
 
+  // Save
+  UserEntity save(UserRequestDTO userRequestDTO);
 }

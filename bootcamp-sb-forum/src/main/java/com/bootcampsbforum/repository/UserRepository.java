@@ -6,13 +6,13 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import com.bootcampsbforum.entity.User;
+import com.bootcampsbforum.entity.UserEntity;
 import com.bootcampsbforum.infra.ApiResp;
 import java.util.List;
 
 
 @Repository // Bean // componenetScan will find this class -> create bean --> put into the spring context
-public interface UserRepository extends JpaRepository<User, Long> { // create a primary key auto generated strategy// JpaRepository<Entity, Key Type>
+public interface UserRepository extends JpaRepository<UserEntity, Long> { // create a primary key auto generated strategy// JpaRepository<Entity, Key Type>
 
   //save(), saveAll()
   // Hibernate (implementation class) // cannot see the code of Hibernate here --> 
@@ -23,19 +23,19 @@ public interface UserRepository extends JpaRepository<User, Long> { // create a 
   // 對應不同product --> connect to different
 
   // select * from users where username = ?
-  User findByUsername(String username);
+  UserEntity findByUsername(String username);
 
   // Hibernate support method generation 
   // findAll, findFirst
 
-  List<User> findAllByEmailAndPhone(String email, String phone);
+  List<UserEntity> findAllByEmailAndPhone(String email, String phone);
 
-  List<User> findAllByEmailOrPhone(String email, String phone, Sort sort);
+  List<UserEntity> findAllByEmailOrPhone(String email, String phone, Sort sort);
 
   //JPQL e is the whole entity
   // is java ...
-  @Query("SELECT e FROM User e WHERE CAST(e.addrLat AS double) > :lat")
-  List<User> findAllByAddrLatGreaterThan(@Param("lat") Double latitude);
+  @Query("SELECT e FROM UserEntity e WHERE CAST(e.addrLat AS Double) > :lat")
+  List<UserEntity> findAllByAddrLatGreaterThan(@Param("lat") Double latitude);
 
   //Native SQL // different product may have different syntax , dont write sql in the java
   // Product specific, may re compile
@@ -48,7 +48,7 @@ public interface UserRepository extends JpaRepository<User, Long> { // create a 
 
   // JPQL
   @Modifying
-  @Query("UPDATE User u SET u.email = :newEmail WHERE u.id = :userId")
+  @Query("UPDATE UserEntity u SET u.email = :newEmail WHERE u.id = :userId")
   void updateUser(@Param("userId") Long id, @Param("newEmail") String email);
 
 

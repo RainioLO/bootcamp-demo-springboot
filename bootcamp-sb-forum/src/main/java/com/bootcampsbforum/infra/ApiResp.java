@@ -1,7 +1,11 @@
 package com.bootcampsbforum.infra;
 
-import lombok.Builder;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 // ApiResp.builder().code().message().data().build();
 
@@ -12,6 +16,12 @@ import lombok.Getter;
 
 // @Getter
 // @Builder
+//@JsonSerialize
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiResp<T> {
 
   private String code;
@@ -77,13 +87,5 @@ public class ApiResp<T> {
       return new ApiResp<>(this);
     }
 
-  }
-
-  public static void main(String[] args) {
-
-    ApiResp<String> apiResp = ApiResp.<String>builder() //
-        .status(Syscode.OK) //
-        .data("hello world") //
-        .build();
   }
 }

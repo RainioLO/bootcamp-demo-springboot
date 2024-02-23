@@ -1,4 +1,4 @@
-package com.bootcampsbforum.dto.gov;
+package com.bootcampsbforum.dto.gov.request.response.gov;
 
 import java.util.List;
 import lombok.AllArgsConstructor;

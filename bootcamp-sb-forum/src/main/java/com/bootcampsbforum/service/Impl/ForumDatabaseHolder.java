@@ -3,7 +3,7 @@ package com.bootcampsbforum.service.Impl;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.bootcampsbforum.entity.User;
+import com.bootcampsbforum.entity.UserEntity;
 import com.bootcampsbforum.repository.UserRepository;
 import com.bootcampsbforum.service.ForumDatabaseService;
 
@@ -15,7 +15,7 @@ public class ForumDatabaseHolder implements ForumDatabaseService {
   private UserRepository userRepository; // no metter interface or not just autowire
 
   @Override
-  public List<User> saveUsers(List<User> users) {
+  public List<UserEntity> saveUsers(List<UserEntity> users) {
     return userRepository.saveAll(users);
   }
 
@@ -25,7 +25,7 @@ public class ForumDatabaseHolder implements ForumDatabaseService {
   }
 
   @Override
-  public User saveUser(User user) { // save entity in the server
+  public UserEntity saveUser(UserEntity user) { // save entity in the server
     return userRepository.save(user);
   }
 

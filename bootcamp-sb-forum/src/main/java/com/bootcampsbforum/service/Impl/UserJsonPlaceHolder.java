@@ -12,11 +12,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+import com.bootcampsbforum.dto.gov.request.UserRequestDTO;
+import com.bootcampsbforum.entity.UserEntity;
 import com.bootcampsbforum.infra.ApiResp;
 import com.bootcampsbforum.infra.BcUtil;
 import com.bootcampsbforum.infra.ResourceNotFound;
 import com.bootcampsbforum.infra.Scheme;
 import com.bootcampsbforum.infra.Syscode;
+import com.bootcampsbforum.mapper.UserMapper;
 import com.bootcampsbforum.model.dto.jph.User;
 import com.bootcampsbforum.repository.UserRepository;
 import com.bootcampsbforum.service.PostService;
@@ -35,7 +38,7 @@ public class UserJsonPlaceHolder implements UserService { // the only object
   private String userEndpoint;
 
   @Autowired
-  private PostService postService;
+  private UserMapper userMapper;
 
   @Autowired
   private RestTemplate restTemplate;
@@ -64,7 +67,7 @@ public class UserJsonPlaceHolder implements UserService { // the only object
   }
 
   @Override
-  public com.bootcampsbforum.entity.User findByUsername(String username) {
+  public com.bootcampsbforum.entity.UserEntity findByUsername(String username) {
     return userRepository.findByUsername(username);
   }
 
@@ -74,18 +77,18 @@ public class UserJsonPlaceHolder implements UserService { // the only object
   // }
 
   @Override
-  public List<com.bootcampsbforum.entity.User> getAllByEmailOrPhone(
+  public List<com.bootcampsbforum.entity.UserEntity> getAllByEmailOrPhone(
       String email, String phone, Sort sort) {
     return userRepository.findAllByEmailOrPhone(email, phone, sort);
   }
 
-  public List<com.bootcampsbforum.entity.User> getAllByEmailOrPhone(String email, String phone) {
+  public List<com.bootcampsbforum.entity.UserEntity> getAllByEmailOrPhone(String email, String phone) {
     Sort sort = Sort.by("email").ascending().and(Sort.by("phone").ascending());
     return userRepository.findAllByEmailOrPhone(email, phone, sort);
   }
 
   @Override
-  public List<com.bootcampsbforum.entity.User> getUsersByAddrLatGreaterThan(
+  public List<com.bootcampsbforum.entity.UserEntity> getUsersByAddrLatGreaterThan(
       Double latitude) {
     return userRepository.findAllByAddrLatGreaterThan(latitude);
   }
@@ -103,11 +106,11 @@ public class UserJsonPlaceHolder implements UserService { // the only object
 
   @Override
   @Transactional
-  public com.bootcampsbforum.entity.User updateUserById(
-      Long userId, com.bootcampsbforum.entity.User newUser) {
+  public com.bootcampsbforum.entity.UserEntity updateUserById(
+      Long userId, com.bootcampsbforum.entity.UserEntity newUser) {
     // entityManager.find() -> select
-    com.bootcampsbforum.entity.User oldUser = entityManager
-        .find(com.bootcampsbforum.entity.User.class, userId);
+    com.bootcampsbforum.entity.UserEntity oldUser = entityManager
+        .find(com.bootcampsbforum.entity.UserEntity.class, userId);
     oldUser.setName(newUser.getName());
     oldUser.setAddrLat(newUser.getAddrLat());
     oldUser.setAddrLong(newUser.getAddrLong());
@@ -128,5 +131,12 @@ public class UserJsonPlaceHolder implements UserService { // the only object
     return oldUser;
   }
 
+  @Override
+  @Transactional
+  public UserEntity save(UserRequestDTO userRequestDTO) {
+    UserEntity userEntity = userMapper.mapEntity(userRequestDTO);
+    System.out.println("userEntity=" + userEntity);
+    return userRepository.save(userEntity);
+  }
 
 }

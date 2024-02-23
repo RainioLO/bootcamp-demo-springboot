@@ -8,10 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.bootcampsbforum.controller.GovOperation;
-import com.bootcampsbforum.dto.gov.PostDTO;
-import com.bootcampsbforum.dto.gov.UserCommentDTO;
-import com.bootcampsbforum.dto.gov.UserDTO;
-import com.bootcampsbforum.dto.gov.UserPostDTO;
+import com.bootcampsbforum.dto.gov.request.response.gov.PostDTO;
+import com.bootcampsbforum.dto.gov.request.response.gov.UserCommentDTO;
+import com.bootcampsbforum.dto.gov.request.response.gov.UserDTO;
+import com.bootcampsbforum.dto.gov.request.response.gov.UserPostDTO;
 import com.bootcampsbforum.infra.ApiResp;
 import com.bootcampsbforum.infra.ResourceNotFound;
 import com.bootcampsbforum.infra.Syscode;
@@ -49,7 +49,6 @@ public class GovController implements GovOperation {
   @Autowired
   private GovService govService;
 
-
   @Override
   public ApiResp<List<UserPostDTO>> getUsers() {
     List<UserPostDTO> userPostDTOs = govService.getUsers().stream().map(e -> {
@@ -61,7 +60,6 @@ public class GovController implements GovOperation {
                 .title(p.getTitle()) //
                 .body(p.getBody()).build();
           }).collect(Collectors.toList());
-
       return UserPostDTO.builder() // from User to UserPostDTO
           .id(e.getId())//
           .username(e.getUsername())//
@@ -69,7 +67,10 @@ public class GovController implements GovOperation {
           .phone(e.getPhone())//
           .postDTOs(postDTOs)//
           .build();
-    }).collect(Collectors.toList());
+    })//
+    .collect(Collectors.toList());
+log.info("userPostDTOs size : " + userPostDTOs.size());
+log.info("userPostDTOs sizesize: " + userPostDTOs.get(0).getPostDTOs().size());
 
     return ApiResp.<List<UserPostDTO>>builder() // return if ok only , other do in service part
         .code(Syscode.OK.getCode()) //

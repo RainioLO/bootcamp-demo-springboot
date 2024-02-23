@@ -5,11 +5,11 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.bootcampsbforum.dto.gov.CommentDTO;
-import com.bootcampsbforum.dto.gov.PostDTO;
-import com.bootcampsbforum.dto.gov.UserCommentDTO;
-import com.bootcampsbforum.dto.gov.UserDTO;
-import com.bootcampsbforum.dto.gov.UserPostDTO;
+import com.bootcampsbforum.dto.gov.request.response.gov.CommentDTO;
+import com.bootcampsbforum.dto.gov.request.response.gov.PostDTO;
+import com.bootcampsbforum.dto.gov.request.response.gov.UserCommentDTO;
+import com.bootcampsbforum.dto.gov.request.response.gov.UserDTO;
+import com.bootcampsbforum.dto.gov.request.response.gov.UserPostDTO;
 import com.bootcampsbforum.model.dto.jph.Comment;
 import com.bootcampsbforum.model.dto.jph.Post;
 import com.bootcampsbforum.model.dto.jph.User;
@@ -28,12 +28,12 @@ public class GovMapper {
   }
 
   // from User to Entity<User>
-  public com.bootcampsbforum.entity.User mapEntity(User user) {
-    return com.bootcampsbforum.entity.User.builder()//
+  public com.bootcampsbforum.entity.UserEntity mapEntity(User user) {
+    return com.bootcampsbforum.entity.UserEntity.builder()//
         .name(user.getName())//
         .username(user.getUsername())//
         .website(user.getWebsite())//
-        .addrLat(user.getAddress().getGeo().getLat())//
+        .addrLat(user.getAddress().getGeo().getLatitude())//
         .addrLong(user.getAddress().getGeo().getLongitude())//
         .email(user.getEmail())//
         .phone(user.getPhone())//

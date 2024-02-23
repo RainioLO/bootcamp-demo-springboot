@@ -6,7 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import com.bootcampsbforum.entity.User;
+import com.bootcampsbforum.entity.UserEntity;
 import com.bootcampsbforum.mapper.GovMapper;
 import com.bootcampsbforum.repository.UserRepository;
 import com.bootcampsbforum.service.UserService;

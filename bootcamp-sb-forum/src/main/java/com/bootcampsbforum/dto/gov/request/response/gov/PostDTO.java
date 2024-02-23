@@ -1,4 +1,4 @@
-package com.bootcampsbforum.dto.gov;
+package com.bootcampsbforum.dto.gov.request.response.gov;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -42,10 +42,9 @@ public class GovServiceHolder implements GovService {
     if (users.size() == 0){
       throw new JPHClientException(Syscode.JPH_NOT_AVAILABLE);
     }
-    // clear DB
-    forumDatabaseService.deleteAllUsers();
+
     // save all
-    List<com.bootcampsbforum.entity.User> userEntities = users.stream()//
+    List<com.bootcampsbforum.entity.UserEntity> userEntities = users.stream()//
         .map(e -> govMapper.mapEntity(e))//
         .collect(Collectors.toList());
     forumDatabaseService.saveUsers(userEntities); // from jph to entities and save in database

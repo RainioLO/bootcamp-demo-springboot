@@ -1,13 +1,15 @@
 package com.bootcampsbforum.controller;
 
 import java.util.List;
+import javax.print.attribute.standard.MediaTray;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import com.bootcampsbforum.dto.gov.UserCommentDTO;
-import com.bootcampsbforum.dto.gov.UserDTO;
-import com.bootcampsbforum.dto.gov.UserPostDTO;
+import com.bootcampsbforum.dto.gov.request.response.gov.UserCommentDTO;
+import com.bootcampsbforum.dto.gov.request.response.gov.UserDTO;
+import com.bootcampsbforum.dto.gov.request.response.gov.UserPostDTO;
 import com.bootcampsbforum.infra.ApiResp;
 
 public interface GovOperation {
@@ -21,7 +23,7 @@ public interface GovOperation {
   @ResponseStatus(value = HttpStatus.OK)
   ApiResp<UserPostDTO> getUser(@RequestParam(value = "id") int userId);
 
-  @GetMapping(value = "/users")
+  @GetMapping(value = "/users")//,produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(value = HttpStatus.OK)
   ApiResp<List<UserPostDTO>> getUsers();
 

@@ -32,7 +32,8 @@ public class User { // from JSON to object deserializtion
   @Setter
   public static class Location {
 
-    private String lat;
+    @JsonProperty(value = "lat")
+    private String latitude;
 
     @JsonProperty(value = "lng") // this is from outside --> we can use our own name ...
     private String longitude;
