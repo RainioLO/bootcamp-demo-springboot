@@ -37,7 +37,7 @@ public class CoinOperationImpl implements CoinOperation {
       JsonProcessingException {
 
     if (currency.isBlank()) {
-      throw new NullPointerException();
+      throw new CurrencyNotFoundException(Syscode.CURRENCY_NOTFOUND);
     }
 
     if (ids.isBlank()) {
@@ -65,7 +65,8 @@ public class CoinOperationImpl implements CoinOperation {
       case "usd":
         if (usdfilteredCoins.size() > 0) {
           for (Coin coin : usdfilteredCoins) {
-            String key = "crypto:coingecko:coins-markets:" + currency + ":" + coin.getId();
+            String key = "crypto:coingecko:coins-markets:" + currency + ":"
+                + coin.getId();
             redisService.createCoin(key, coin);
           }
         }
@@ -82,10 +83,11 @@ public class CoinOperationImpl implements CoinOperation {
 
   @Override
   public ApiResponse<List<CoinDTO>> getCoinDTO(String currency, String ids)
-      throws CurrencyNotFoundException, NullPointerException, JsonProcessingException {
+      throws CurrencyNotFoundException, NullPointerException,
+      JsonProcessingException {
 
     if (currency.isBlank()) {
-      throw new NullPointerException();
+      throw new CurrencyNotFoundException(Syscode.CURRENCY_NOTFOUND);
     }
 
     if (ids.isBlank()) {
@@ -116,7 +118,8 @@ public class CoinOperationImpl implements CoinOperation {
       case "usd":
         if (usdfilteredCoinsDTO.size() > 0) {
           for (CoinDTO coin : usdfilteredCoinsDTO) {
-            String key = "crypto:coingecko:coins-markets:" + currency + ":" + coin.getId();
+            String key = "crypto:coingecko:coins-markets:" + currency + ":"
+                + coin.getId();
             redisService.createCoinDTO(key, coin);
           }
         }

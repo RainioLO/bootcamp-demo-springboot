@@ -25,6 +25,17 @@ public class GlobalExceptionHandler {
         .build(); //
   }
 
+  @ExceptionHandler(CurrencyNotFoundException.class)
+  @ResponseStatus(value = HttpStatus.SERVICE_UNAVAILABLE)
+  public ApiResponse<Void> CurrencyNotFoundExceptionHandler(
+      CurrencyNotFoundException e) {
+    return ApiResponse.<Void>builder() //
+        .code(Syscode.CURRENCY_NOTFOUND.getCode()) //
+        .message(Syscode.CURRENCY_NOTFOUND.getMessage()) //
+        .data(null) //
+        .build(); //
+  }
+  
   @ExceptionHandler(NullPointerException.class)
   @ResponseStatus(value = HttpStatus.BAD_REQUEST)
   public ApiResponse<Void> NullPointerExceptionHandler(NullPointerException e) {
@@ -51,17 +62,6 @@ public class GlobalExceptionHandler {
     return ApiResponse.<Void>builder() //
         .code(Syscode.NPE_EXCEPTION.getCode()) //
         .message(Syscode.NPE_EXCEPTION.getMessage())//
-        .data(null) //
-        .build(); //
-  }
-
-  @ExceptionHandler(CurrencyNotFoundException.class)
-  @ResponseStatus(value = HttpStatus.SERVICE_UNAVAILABLE)
-  public ApiResponse<Void> CurrencyNotFoundExceptionHandler(
-      CurrencyNotFoundException e) {
-    return ApiResponse.<Void>builder() //
-        .code(Syscode.CURRENCY_NOTFOUND.getCode()) //
-        .message(Syscode.CURRENCY_NOTFOUND.getMessage()) //
         .data(null) //
         .build(); //
   }

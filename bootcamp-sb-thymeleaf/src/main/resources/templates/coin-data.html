@@ -1,0 +1,30 @@
+<!-- external-data.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>Coingecko - Coin Data</title>
+</head>
+
+<body>
+  <h1>Coin Data from External API</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Image</th>
+        <th>Current Price (USD)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="coin : ${coinDataList}">
+        <td><img th:src="${coin.image}" alt="Coin Image" height="30"></td>
+        <td th:text="${coin.id}"></td>
+        <td th:text="${coin.currentPrice}"></td>
+      </tr>
+    </tbody>
+  </table>
+
+</body>
+
+</html>

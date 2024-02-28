@@ -11,6 +11,10 @@ public class BusinessRuntimeException extends RuntimeException {
     this.code = syscode.getCode();
   }
 
+  public BusinessRuntimeException() {
+
+  }
+
   // BusinessRuntimeException -> RuntimeException -> Exception -> Throwable
   // Subclass of Throwable:
   // 1. "throw" an object of this subclass

@@ -8,9 +8,9 @@ api:
       user: "/users"
       post: "/posts"
       comment: "/comments"
-
+      
 database:
-  postgres: "db_forum"
+  postgres: "db_forum" 
 
 spring.datasource:
   driverClassName: "org.hibernate.dialect.PostgreSQLDialect" 

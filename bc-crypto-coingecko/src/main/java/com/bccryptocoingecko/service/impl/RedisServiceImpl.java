@@ -16,7 +16,7 @@ public class RedisServiceImpl implements RedisService {
 
   @Override
   public Coin createCoin(String key, Coin coin) throws JsonProcessingException {
-    redisHelper.set(key, coin, "10");
+    redisHelper.set(key, coin, "30");
     return coin;
   }
 
@@ -27,7 +27,7 @@ public class RedisServiceImpl implements RedisService {
 
   @Override
   public CoinDTO createCoinDTO(String key, CoinDTO coinDTO) throws JsonProcessingException {
-    redisHelper.set(key, coinDTO, "10");
+    redisHelper.set(key, coinDTO, "30");
     return coinDTO;
   }
 

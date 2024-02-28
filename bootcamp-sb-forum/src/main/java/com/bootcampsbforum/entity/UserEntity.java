@@ -55,7 +55,7 @@ public class UserEntity implements Serializable { // if no implement cannot put 
   @Column(name = "COMPANY_BUSINESS_SERVICE")
   private String cBusService;
 
-  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true) //CascadeType --> 
   @JsonManagedReference
   private List<PostEntity> posts = new ArrayList<>(); // link to the PostEntity 
 

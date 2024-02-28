@@ -10,7 +10,9 @@ public enum Syscode {
   // Runtime Exception
   NPE_EXCEPTION("900000", "Runtime Exception - NPE."), //
   GENERAL_EXCEPTION("999999", "General Exception."),
-  REST_CLIENT_EXCEPTION("90001", "RestClient Exception");
+  REST_CLIENT_EXCEPTION("90001", "RestClient Exception"),
+
+  REQUEST_PARAM_EXCEPTION("90002", "Invalid Request Parameter or Body.");
 
   private String code;
   private String message;
