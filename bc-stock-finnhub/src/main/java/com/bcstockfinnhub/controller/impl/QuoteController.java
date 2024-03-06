@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.bcstockfinnhub.controller.QuoteOperation;
+import com.bcstockfinnhub.exception.ThirdAPIException;
 import com.bcstockfinnhub.infra.ApiResponse;
 import com.bcstockfinnhub.infra.Syscode;
 import com.bcstockfinnhub.model.Profile;
@@ -34,6 +35,9 @@ public class QuoteController implements QuoteOperation {
     String key = "stock:finnhub:quote:" + symbol;
     redisService.createQuote(key, quote);
 
+    if (quote.getCurrentPrice() == null)
+      throw new ThirdAPIException(Syscode.CLIENT_RESPONSE_EXCEPTION);
+
     return ApiResponse.<Quote>builder() //
         .code(Syscode.OK.getCode()) //
         .message(Syscode.OK.getMessage()) //
@@ -49,6 +53,9 @@ public class QuoteController implements QuoteOperation {
     String key = "stock:finnhub:profile2:" + symbol;
     redisService.createProfile(key, profile);
 
+    if (profile.getExchange() == null)
+      throw new ThirdAPIException(Syscode.CLIENT_RESPONSE_EXCEPTION);
+
     return ApiResponse.<Profile>builder() //
         .code(Syscode.OK.getCode()) //
         .message(Syscode.OK.getMessage()) //
@@ -61,13 +68,8 @@ public class QuoteController implements QuoteOperation {
 
     Quote redisQuote = redisService.getQuote(key);
 
-    if (redisQuote == null) { // NoResourceFoundException
-      return ApiResponse.<Quote>builder() //
-          .code(Syscode.ERROR.getCode()) //
-          .message(Syscode.ERROR.getMessage()) //
-          .data(null) //
-          .build();
-    }
+    if (redisQuote.getCurrentPrice() == null)
+      throw new ThirdAPIException(Syscode.CLIENT_RESPONSE_EXCEPTION);
 
     return ApiResponse.<Quote>builder() //
         .code(Syscode.OK.getCode()) //
@@ -82,13 +84,8 @@ public class QuoteController implements QuoteOperation {
     // String key = "stock:finnhub:profile2:" + "{" + symbol + "}";
     Profile redisProfile = redisService.getProfile(key);
 
-    if (redisProfile == null) {
-      return ApiResponse.<Profile>builder() //
-          .code(Syscode.ERROR.getCode()) //
-          .message(Syscode.ERROR.getMessage()) //
-          .data(null) //
-          .build();
-    }
+    if (redisProfile.getExchange() == null)
+      throw new ThirdAPIException(Syscode.CLIENT_RESPONSE_EXCEPTION);
 
     return ApiResponse.<Profile>builder() //
         .code(Syscode.OK.getCode()) //

@@ -34,7 +34,7 @@ public class CoinServiceImpl implements CoinService {
     String coinUrl = BcUtil.url(Scheme.HTTPS, domain, coinMarketEndpoint,
         vsCurrency, apiKey);
     // String coinUrl = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&x_cg_demo_api_key=CG-cTyrK8iCq46x38hgMQZfgGGQ";
-      Coin[] coins = restTemplate.getForObject(coinUrl, Coin[].class);
-      return Arrays.stream(coins).collect(Collectors.toList());
+    Coin[] coins = restTemplate.getForObject(coinUrl, Coin[].class);
+    return Arrays.stream(coins).collect(Collectors.toList());
   }
 }

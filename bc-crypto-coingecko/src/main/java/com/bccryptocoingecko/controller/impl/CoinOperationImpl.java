@@ -33,8 +33,7 @@ public class CoinOperationImpl implements CoinOperation {
 
   @Override
   public ApiResponse<List<Coin>> getCoins(String currency, String ids)
-      throws CurrencyNotFoundException, NullPointerException,
-      JsonProcessingException {
+      throws CurrencyNotFoundException,JsonProcessingException {
 
     if (currency.isBlank()) {
       throw new CurrencyNotFoundException(Syscode.CURRENCY_NOTFOUND);
@@ -49,7 +48,6 @@ public class CoinOperationImpl implements CoinOperation {
     log.info("requirement " + requirement);
     log.info("controller second");
 
-
     List<Coin> usdfilteredCoins = coinService.getCoins().stream()
         .filter(e -> requirement.contains(e.getId()))
         .collect(Collectors.toList());
@@ -60,16 +58,13 @@ public class CoinOperationImpl implements CoinOperation {
       throw new NullPointerException();
     }
 
-
     switch (currency) {
       case "usd":
-        if (usdfilteredCoins.size() > 0) {
           for (Coin coin : usdfilteredCoins) {
             String key = "crypto:coingecko:coins-markets:" + currency + ":"
                 + coin.getId();
             redisService.createCoin(key, coin);
           }
-        }
         return ApiResponse.<List<Coin>>builder() //
             .code(Syscode.OK.getCode()) //
             .message(Syscode.OK.getMessage()) //
