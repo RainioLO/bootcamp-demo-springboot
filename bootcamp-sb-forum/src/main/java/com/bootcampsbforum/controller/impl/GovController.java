@@ -169,10 +169,5 @@ log.info("userPostDTOs sizesize: " + userPostDTOs.get(0).getPostDTOs().size());
         .build();
     return govMapper.map(user); // from User to UserDTO
   }
-
-
-
-  
-
 }
 

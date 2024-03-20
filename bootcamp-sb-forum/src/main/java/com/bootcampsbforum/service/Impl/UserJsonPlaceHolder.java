@@ -132,7 +132,7 @@ public class UserJsonPlaceHolder implements UserService { // the only object
   }
 
   @Override
-  @Transactional
+  @Transactional //all or nothing
   public UserEntity save(UserRequestDTO userRequestDTO) {
     UserEntity userEntity = userMapper.mapEntity(userRequestDTO);
     System.out.println("userEntity=" + userEntity);

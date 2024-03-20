@@ -16,7 +16,7 @@ public interface CoinOperation {
 
   @GetMapping(value = "/coins")
   @ResponseStatus(value = HttpStatus.OK)
-  ApiResponse<List<Coin>> getCoins (@RequestParam(value = "currency") String currency, @RequestParam(value = "ids") String id)
+  ApiResponse<List<Coin>> getCoins (@RequestParam(value = "currency", required = true) String currency, @RequestParam(value = "ids", required = false) String id)
   throws BusinessException, BusinessRuntimeException, JsonProcessingException;
 
   @GetMapping(value = "/coindto")
